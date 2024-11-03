@@ -1,0 +1,15 @@
+{
+    "name": "macbookpro/vbis_projekat",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "DusanStoiljkovic",
+            "email": "dusanstoiljkovic02@gmail.com"
+        }
+    ],
+    "require": {}
+}
