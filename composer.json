@@ -11,5 +11,7 @@
             "email": "dusanstoiljkovic02@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-mysqli": "*"
+    }
 }

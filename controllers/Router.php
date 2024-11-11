@@ -20,9 +20,15 @@ class Router {
             $callback[0] = new $callback[0]();
             return call_user_func($callback);
         }
+        http_response_code(404);
+        echo "NOT FOUND";
     }
 
-    public function get($path, $callback) {
+    public function get($path, $callback) : void {
         $this->routes['get'][$path] = $callback;
+    }
+
+    public function post($path, $callback) : void {
+        $this->routes['post'][$path] = $callback;
     }
 }
