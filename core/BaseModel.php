@@ -64,7 +64,37 @@ abstract class BaseModel {
         }
 
         $conn->query($query);
+    }
 
+    public function add() {
+        $db = new DBConnection();
+        $conn = $db->connection();
+
+        $tableName = $this->getTableName();
+        $columns = $this->editColumns();
+
+        $columnsHelper = array_map(function($attribute) {
+            return ":{$attribute}";
+        }, $columns);
+
+        $query = "INSERT INTO {$tableName} (" . implode(", ", $columns) . ") VALUES (" . implode(", ", $columnsHelper) . ")";
+
+        foreach($columns as $attribute) {
+            $query = str_replace(":$attribute", "'{$this->{$attribute}}'", $query);
+        }
+
+        $conn->query($query);
+    }
+
+    public function delete($where) {
+        $db = new DBConnection();
+        $conn = $db->connection();
+
+        $tableName = $this->getTableName();
+        $columns = $this->editColumns();
+
+        $query = "DELETE FROM {$tableName} WHERE $where";
+        $conn->query($query);
     }
 
     public function mapData($data) : void {

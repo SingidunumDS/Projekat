@@ -27,6 +27,22 @@ class UserController extends BaseController
         $model = new UserModel();
         $model->mapData($_POST);
         $model->update("where user_id = {$_POST['user_id']}");
+    }
 
+    public function createUser() {
+        $this->view->render('createUser', 'main', null);
+    }
+
+    public function processCreateUser() {
+        $model = new UserModel();
+        $model->mapData($_POST);
+        $model->add();
+        header("location:/getUsers");
+    }
+
+    public function deleteUser() {
+        $model = new UserModel();
+        $model->delete("user_id = {$_GET['user_id']}");
+        header("location:/getUsers");
     }
 }

@@ -8,6 +8,11 @@ use app\models\UserModel;
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
+                    <div class="d-flex align-items-center">
+                        <a class="btn btn-primary btn-sm ms-auto" href="/createUser">Create</a>
+                    </div>
+                </div>
+                <div class="card-header pb-0">
                     <h6>Users table</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
