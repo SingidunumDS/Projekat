@@ -7,7 +7,7 @@ class UserController extends BaseController
 {
     public function readUser() {
         $model = new UserModel();
-        $result = $model->getOne("");
+        $model->getOne(" where user_id = {$_GET['user_id']}");
         $this->view->render('getUser', 'main', $model);
     }
 
@@ -19,8 +19,8 @@ class UserController extends BaseController
 
     public function userUpdate() {
         $model = new UserModel();
-        $user = $model->getOne("where user_id={$_GET['user_id']}");
-        $this->view->render('updateUser', 'main', $user);
+        $model->getOne("where user_id={$_GET['user_id']}");
+        $this->view->render('updateUser', 'main', $model);
     }
 
     public function processUpdateUser() {
@@ -36,6 +36,11 @@ class UserController extends BaseController
     public function processCreateUser() {
         $model = new UserModel();
         $model->mapData($_POST);
+        $model->validate();
+        if($model->errors) {
+            $this->view->render('createUser', 'main', $model);
+            exit;
+        }
         $model->add();
         header("location:/getUsers");
     }
@@ -44,5 +49,9 @@ class UserController extends BaseController
         $model = new UserModel();
         $model->delete("user_id = {$_GET['user_id']}");
         header("location:/getUsers");
+    }
+
+    public function signIn() {
+        $this->view->render('signIn', 'main', null);
     }
 }

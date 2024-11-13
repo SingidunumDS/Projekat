@@ -5,35 +5,38 @@ use mysqli;
 use app\core\DBConnection;
 
 abstract class BaseModel {
+    public const RULE_REQUIRED = "rule_required";
+    public const RULE_EMAIL = "rule_email";
+    public $errors;
+
+    public $db;
+    private $conn;
     abstract public function getTableName();
     abstract public function readColumns();
 
-    public function getOne(string $where) {
-        $db = new DBConnection();
-        $conn = $db->connection();
+    public function __construct() {
+        $this->db = new DBConnection();
+        $this->conn = $this->db->connection();
+    }
 
+    public function getOne(string $where) {
         $query = "select " . implode(", ", $this->readColumns()) . " from {$this->getTableName()} $where";
 
-        $dbResult = $conn->query($query);
+        $dbResult = $this->conn->query($query);
         $result = $dbResult->fetch_assoc();
 
         if($result != null)
             $this->mapData($result);
 
-        return $this;
     }
 
-    public function getAll($where) : array
-    {
-        $db = new DBConnection();
-        $conn = $db->connection();
-
+    public function getAll($where) : array {
         $tableName = $this->getTableName();
         $columns = $this->readColumns();
 
         $query = "select " . implode(", ", $columns) . " from {$tableName} $where";
 
-        $dbResult = $conn->query($query);
+        $dbResult = $this->conn->query($query);
 
         $resultArr = [];
         $className = get_class($this);
@@ -46,9 +49,6 @@ abstract class BaseModel {
     }
 
     public function update($where) {
-        $db = new DBConnection();
-        $conn = $db->connection();
-
         $tableName = $this->getTableName();
         $columns = $this->editColumns();
 
@@ -63,13 +63,10 @@ abstract class BaseModel {
                 $query);
         }
 
-        $conn->query($query);
+        $this->conn->query($query);
     }
 
     public function add() {
-        $db = new DBConnection();
-        $conn = $db->connection();
-
         $tableName = $this->getTableName();
         $columns = $this->editColumns();
 
@@ -83,18 +80,15 @@ abstract class BaseModel {
             $query = str_replace(":$attribute", "'{$this->{$attribute}}'", $query);
         }
 
-        $conn->query($query);
+        $this->conn->query($query);
     }
 
     public function delete($where) {
-        $db = new DBConnection();
-        $conn = $db->connection();
-
         $tableName = $this->getTableName();
         $columns = $this->editColumns();
 
         $query = "DELETE FROM {$tableName} WHERE $where";
-        $conn->query($query);
+        $this->conn->query($query);
     }
 
     public function mapData($data) : void {
@@ -107,4 +101,27 @@ abstract class BaseModel {
         }
     }
 
+    public function validate() {
+        $allRules = $this->validationRules();
+
+        foreach($allRules as $attribute => $rules) {
+            $value = $this->{$attribute};
+
+            foreach($rules as $rule) {
+                if($rule === self::RULE_REQUIRED) {
+                    if(!$value) {
+                        $this->errors[$attribute][] = "This field is required";
+                    }
+                }
+
+                if($rule == self::RULE_EMAIL) {
+                    if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                        $this->errors[$attribute][] = "This field is not a valid email address";
+                    }
+                }
+            }
+        }
+
+
+    }
 }

@@ -7,9 +7,9 @@ use app\core\BaseModel;
 
 class UserModel extends BaseModel{
     public int $user_id;
-    public string $firstName;
-    public string $lastName;
-    public string $email;
+    public string $firstName = '';
+    public string $lastName = '';
+    public string $email = '';
 
     public function getTableName() : string
     {
@@ -23,5 +23,13 @@ class UserModel extends BaseModel{
 
     public function editColumns() : array {
         return ['email', 'firstName', 'lastName'];
+    }
+
+    public function validationRules() : array {
+        return [
+            "email" => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            "firstName" => [self::RULE_REQUIRED],
+            "lastName" => [self::RULE_REQUIRED]
+        ];
     }
 }

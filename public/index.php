@@ -15,5 +15,6 @@ $app->router->post('/processUpdateUser', [UserController::class, 'processUpdateU
 $app->router->get('/createUser', [UserController::class, 'createUser']);
 $app->router->post('/processCreateUser', [UserController::class, 'processCreateUser']);
 $app->router->get('/deleteUser', [UserController::class, 'deleteUser']);
+$app->router->get('/signIn', [UserController::class, 'signIn']);
 
 $app->run();
