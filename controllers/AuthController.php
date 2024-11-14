@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\models\AuthModel;
 use app\models\RoleModel;
+use app\models\SessionUserModel;
 use app\models\UserRoleModel;
+use app\core\Application;
 
 class AuthController extends BaseController
 {
@@ -38,6 +40,9 @@ class AuthController extends BaseController
     }
 
     public function login() {
+        if(Application::$app->session->get('user')) {
+            header("location:/home");
+        }
         $this->view->render('login', 'auth', new AuthModel());
     }
 
@@ -57,6 +62,16 @@ class AuthController extends BaseController
             $this->view->render('login', 'auth', $model);
             exit;
         }
+        $session = new SessionUserModel();
+        $session->email = $model->email;
+        $session->getSessionData();
+
+        Application::$app->session->set('user', $session);
         header("location:/home");
+    }
+
+    public function logout() {
+        Application::$app->session->delete('user');
+        header("location:/login");
     }
 }

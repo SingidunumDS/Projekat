@@ -10,7 +10,7 @@ abstract class BaseModel {
     public $errors;
 
     public $db;
-    private $conn;
+    public $conn;
     abstract public function getTableName();
     abstract public function readColumns();
 

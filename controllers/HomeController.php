@@ -2,9 +2,14 @@
 
 namespace app\controllers;
 
+use app\core\Application;
+
 class HomeController extends BaseController
 {
     public function home() {
-        $this->view->render('home', 'main', null);
+        if(Application::$app->session->get('user'))
+            $this->view->render('home', 'main', null);
+        else
+            print_r("ERROR");
     }
 }

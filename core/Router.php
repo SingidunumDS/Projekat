@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\core;
 
 class Router {
     public Request $request;
