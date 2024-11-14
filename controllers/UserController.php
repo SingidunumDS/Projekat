@@ -52,6 +52,10 @@ class UserController extends BaseController
     }
 
     public function signIn() {
-        $this->view->render('signIn', 'main', null);
+        $this->view->render('signIn', 'auth', null);
+    }
+
+    public function signUp() {
+        $this->view->render('signUp', 'auth', null);
     }
 }
