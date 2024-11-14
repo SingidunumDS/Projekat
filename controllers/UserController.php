@@ -50,12 +50,4 @@ class UserController extends BaseController
         $model->delete("user_id = {$_GET['user_id']}");
         header("location:/getUsers");
     }
-
-    public function signIn() {
-        $this->view->render('signIn', 'auth', null);
-    }
-
-    public function signUp() {
-        $this->view->render('signUp', 'auth', null);
-    }
 }

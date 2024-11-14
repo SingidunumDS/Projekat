@@ -10,6 +10,7 @@ class UserModel extends BaseModel{
     public string $firstName = '';
     public string $lastName = '';
     public string $email = '';
+    public string $password = '';
 
     public function getTableName() : string
     {
@@ -18,18 +19,19 @@ class UserModel extends BaseModel{
 
     public function readColumns() : array
     {
-        return ['user_id', 'email', 'firstName', 'lastName'];
+        return ['user_id', 'email', 'firstName', 'lastName', 'password'];
     }
 
     public function editColumns() : array {
-        return ['email', 'firstName', 'lastName'];
+        return ['email', 'firstName', 'lastName', 'password'];
     }
 
     public function validationRules() : array {
         return [
             "email" => [self::RULE_REQUIRED, self::RULE_EMAIL],
             "firstName" => [self::RULE_REQUIRED],
-            "lastName" => [self::RULE_REQUIRED]
+            "lastName" => [self::RULE_REQUIRED],
+            "password" => [self::RULE_REQUIRED]
         ];
     }
 }

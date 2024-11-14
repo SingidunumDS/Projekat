@@ -10,7 +10,7 @@
                                 <p class="mb-0">Enter your email and password to sign in</p>
                             </div>
                             <div class="card-body">
-                                <form role="form" method="post">
+                                <form role="form" method="post" action="/processLogin">
                                     <div class="mb-3">
                                         <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
                                     </div>

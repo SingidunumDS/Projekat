@@ -10,15 +10,15 @@
                                 <p class="mb-0">Enter your email and password to sign up</p>
                             </div>
                             <div class="card-body">
-                                <form role="form" method="post">
+                                <form role="form" method="post" action="/processRegistration">
                                     <div class="mb-3">
                                         <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
                                     </div>
                                     <div class="mb-3">
-                                        <input type="email" name="userName" class="form-control form-control-lg" placeholder="Username" aria-label="Email">
+                                        <input type="text" name="userName" class="form-control form-control-lg" placeholder="Username" aria-label="Email">
                                     </div>
                                     <div class="mb-3">
-                                        <input type="email" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                                        <input type="text" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
                                     </div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="rememberMe">
