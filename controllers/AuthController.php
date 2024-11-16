@@ -74,6 +74,10 @@ class AuthController extends BaseController
         header("location:/login");
     }
 
+    public function accessDenied() {
+        $this->view->render('accessDenied', 'auth', null);
+    }
+
     public function accessRoles()
     {
         return [];

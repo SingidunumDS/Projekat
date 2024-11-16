@@ -1,17 +1,6 @@
-<!--
-=========================================================
-* Argon Dashboard 3 - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+<?php
+use app\core\Application;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,18 +44,30 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="navbar-nav">
-                            <li class="nav-item me-0">
-                                <a class="nav-link me-2" href="/login">
-                                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                                    Sign In
-                                </a>
-                            </li>
-                            <li class="nav-item me-0">
-                                <a class="nav-link me-2" href="/registration">
-                                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                                    Sign Up
-                                </a>
-                            </li>
+                            <?php
+                                if(Application::$app->session->get('user')) {
+                                    echo ' <li class="nav-item me-0">';
+                                    echo '<a class="nav-link me-2" href="/logout">';
+                                    echo '<i class="fas fa-key opacity-6 text-dark me-1"></i>';
+                                    echo 'Logout';
+                                    echo '</a>';
+                                    echo '</li>';
+                                } else {
+                                    echo ' <li class="nav-item me-0">';
+                                    echo '<a class="nav-link me-2" href="/login">';
+                                    echo '<i class="fas fa-key opacity-6 text-dark me-1"></i>';
+                                    echo 'Sign In';
+                                    echo '</a>';
+                                    echo '</li>';
+
+                                    echo ' <li class="nav-item me-0">';
+                                    echo '<a class="nav-link me-2" href="/registration">';
+                                    echo '<i class="fas fa-key opacity-6 text-dark me-1"></i>';
+                                    echo 'Register';
+                                    echo '</a>';
+                                    echo '</li>';
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>

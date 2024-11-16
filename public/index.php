@@ -22,4 +22,5 @@ $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/processRegistration', [AuthController::class, 'processRegistration']);
 $app->router->post('/processLogin', [AuthController::class, 'processLogin']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
+$app->router->get('/accessDenied', [AuthController::class, 'accessDenied']);
 $app->run();

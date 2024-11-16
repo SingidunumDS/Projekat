@@ -1,5 +1,9 @@
 <!-- Glavni izgled stranice, header, footer, sidebar... Dok se samo RENDER_SECTION menja -->
 
+<?php
+use app\core\Application;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,38 +54,50 @@
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/getUsers">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Users</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/signIn">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Login</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/registration">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-collection text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Registration</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/logout">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-collection text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Logout</span>
-                </a>
-            </li>
+
+            <?php
+                if(Application::$app->session->get('user')[0]->role === 'admin') {
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link " href="/getUsers">';
+                    echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                    echo '<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>';
+                    echo '</div>';
+                    echo '<span class="nav-link-text ms-1">Users</span>';
+                    echo '</a>';
+                    echo '</li>';
+                }
+            ?>
+
+            <?php
+            if(!Application::$app->session->get('user')) {
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/signIn">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">Login</span>';
+                echo '</a>';
+                echo '</li>';
+
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/registration">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-collection text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">Registration</span>';
+                echo '</a>';
+                echo '</li>';
+            } else {
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/logout">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-user-run text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">Logout</span>';
+                echo '</a>';
+                echo '</li>';
+            }
+            ?>
         </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
