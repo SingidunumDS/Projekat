@@ -12,4 +12,9 @@ class HomeController extends BaseController
         else
             print_r("ERROR");
     }
+
+    public function accessRoles()
+    {
+        return ['korisnik', 'admin'];
+    }
 }

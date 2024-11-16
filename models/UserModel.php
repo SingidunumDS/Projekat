@@ -7,10 +7,11 @@ use app\core\BaseModel;
 
 class UserModel extends BaseModel{
     public int $user_id;
-    public string $firstName = '';
-    public string $lastName = '';
-    public string $email = '';
-    public string $password = '';
+    public $firstName = '';
+    public $lastName = '';
+    public $email = '';
+    public $password = '';
+    public $role;
 
     public function getTableName() : string
     {
@@ -31,7 +32,8 @@ class UserModel extends BaseModel{
             "email" => [self::RULE_REQUIRED, self::RULE_EMAIL],
             "firstName" => [self::RULE_REQUIRED],
             "lastName" => [self::RULE_REQUIRED],
-            "password" => [self::RULE_REQUIRED]
+            "password" => [self::RULE_REQUIRED],
+            "role" => [self::RULE_REQUIRED]
         ];
     }
 }

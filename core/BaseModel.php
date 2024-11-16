@@ -86,8 +86,7 @@ abstract class BaseModel {
     public function delete($where) {
         $tableName = $this->getTableName();
         $columns = $this->editColumns();
-
-        $query = "DELETE FROM {$tableName} WHERE $where";
+        $query = "DELETE FROM {$tableName} {$where}";
         $this->conn->query($query);
     }
 

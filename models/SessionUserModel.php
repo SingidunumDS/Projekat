@@ -13,13 +13,17 @@ class SessionUserModel extends BaseModel
     public $role;
 
     public function getSessionData() {
-        $query = "SELECT u.user_id, u.firstName, u.lastName, u.email, r.name as role
-        FROM user_role ur LEFT JOIN user u ON ur.user_id = u.user_id 
-        LEFT JOIN role r ON ur.user_role_id = r.role_id 
-        WHERE u.email = '$this->email';";
+        $query = "SELECT u.user_id, u.firstName, u.lastName, u.email, r.name as role FROM user_role ur LEFT JOIN user u ON ur.user_id = u.user_id LEFT JOIN role r ON ur.role_id = r.role_id WHERE u.email = '{$this->email}';";
 
         $dbResult = $this->conn->query($query);
-        $this->mapData($dbResult->fetch_assoc());
+
+        $arrResult = [];
+        while($result = $dbResult->fetch_assoc()) {
+            $user = new SessionUserModel();
+            $user->mapData($result);
+            $arrResult[] = $user;
+        }
+        return $arrResult;
     }
     public function getTableName() {
         return '';

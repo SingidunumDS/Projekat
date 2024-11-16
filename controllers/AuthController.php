@@ -64,14 +64,18 @@ class AuthController extends BaseController
         }
         $session = new SessionUserModel();
         $session->email = $model->email;
-        $session->getSessionData();
 
-        Application::$app->session->set('user', $session);
+        Application::$app->session->set('user', $session->getSessionData());
         header("location:/home");
     }
 
     public function logout() {
         Application::$app->session->delete('user');
         header("location:/login");
+    }
+
+    public function accessRoles()
+    {
+        return [];
     }
 }

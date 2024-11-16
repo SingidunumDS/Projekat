@@ -49,6 +49,38 @@
                         }?>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Password</label>
+                        <input class="form-control" name="password" type="password" onfocus="focused(this)" onfocusout="defocused(this)">
+                        <?php if($params != null && $params->errors != null) {
+                            foreach ($params->errors as $attribute => $error) {
+                                if($attribute == 'password') {
+                                    echo "<div class='text-danger'>$error[0]</div>";
+                                }
+                            }
+                        }?>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Role</label>
+                        <select name="role">
+                            <option value="1">Administrator</option>
+                            <option value="2">Korisnik</option>
+                        </select>
+                        <?php if($params != null && $params->errors != null) {
+                            foreach ($params->errors as $attribute => $error) {
+                                if($attribute == 'role') {
+                                    echo "<div class='text-danger'>$error[0]</div>";
+                                }
+                            }
+                        }?>
+
+                    </div>
+                </div>
             </div>
         </div>
     </form>
