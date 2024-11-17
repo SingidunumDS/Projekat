@@ -7,6 +7,7 @@ use app\core\DBConnection;
 abstract class BaseModel {
     public const RULE_REQUIRED = "rule_required";
     public const RULE_EMAIL = "rule_email";
+    public const RULE_UNIQUE_EMAIL = "rule_unique_email";
     public $errors;
 
     public $db;
@@ -100,6 +101,15 @@ abstract class BaseModel {
         }
     }
 
+    public function checkUniqueEmail($email): bool {
+        $query = "select email from user where email = '$email'";
+        $dbResult = $this->conn->query($query);
+        $result = $dbResult->fetch_all();
+        if($result != null)
+            return true;
+        return false;
+    }
+
     public function validate() {
         $allRules = $this->validationRules();
 
@@ -116,6 +126,12 @@ abstract class BaseModel {
                 if($rule == self::RULE_EMAIL) {
                     if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         $this->errors[$attribute][] = "This field is not a valid email address";
+                    }
+                }
+
+                if($rule == self::RULE_UNIQUE_EMAIL) {
+                    if($this->checkUniqueEmail($value)) {
+                        $this->errors[$attribute][] = "This email already exists";
                     }
                 }
             }

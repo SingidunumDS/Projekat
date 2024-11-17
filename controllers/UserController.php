@@ -5,6 +5,7 @@ use app\models\UserModel;
 use app\core\DBConnection;
 use app\models\UserRoleModel;
 use app\models\RoleModel;
+use app\core\Application;
 
 class UserController extends BaseController
 {
@@ -30,6 +31,7 @@ class UserController extends BaseController
         $model = new UserModel();
         $model->mapData($_POST);
         $model->update("where user_id = {$_POST['user_id']}");
+        Application::$app->session->set('successNotification', 'Uspesno ste izmenili korisnika');
         header('Location:/getUsers');
     }
 
@@ -57,7 +59,7 @@ class UserController extends BaseController
         $user_role->user_id = $model->user_id;
         $user_role->role_id = $role->role_id;
         $user_role->add();
-
+        Application::$app->session->set('successNotification', 'Uspesno ste kreirali korisnika');
         header("location:/getUsers");
     }
 
@@ -71,6 +73,7 @@ class UserController extends BaseController
             $user_role->getOne("where user_id = {$userId}");
             $user_role->delete("WHERE user_id = {$userId}");
             $model->delete("WHERE user_id = {$userId}");
+            Application::$app->session->set('successNotification', 'Uspesno ste obrisali korisnika');
             header("location:/getUsers");
         } else
             echo "USER ID DOESNT MATCH";

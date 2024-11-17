@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\AuthModel;
+use app\models\LoginModel;
+use app\models\RegistrationModel;
 use app\models\RoleModel;
 use app\models\SessionUserModel;
 use app\models\UserRoleModel;
@@ -11,18 +12,17 @@ use app\core\Application;
 class AuthController extends BaseController
 {
     public function registration() {
-        $this->view->render('registration', 'auth', new AuthModel());
+        $this->view->render('registration', 'auth', new RegistrationModel());
     }
 
     public function processRegistration() {
-        $model = new AuthModel();
+        $model = new RegistrationModel();
         $model->mapData($_POST);
         $model->validate();
         if($model->errors) {
             $this->view->render('registration', 'auth', $model);
             exit;
         }
-
         $model->password = password_hash($model->password, PASSWORD_DEFAULT);
         $model->add();
         $model->getOne("where email = '$model->email'");
@@ -35,7 +35,7 @@ class AuthController extends BaseController
         $user_role->role_id = $role->role_id;
 
         $user_role->add();
-
+        Application::$app->session->set('successNotification', 'Uspesno ste se registrovali!');
         $this->view->render('registration', 'auth', $model);
     }
 
@@ -43,11 +43,11 @@ class AuthController extends BaseController
         if(Application::$app->session->get('user')) {
             header("location:/home");
         }
-        $this->view->render('login', 'auth', new AuthModel());
+        $this->view->render('login', 'auth', new LoginModel());
     }
 
     public function processLogin() {
-        $model = new AuthModel();
+        $model = new LoginModel();
         $model->mapData($_POST);
         $model->validate();
         if($model->errors) {
@@ -57,16 +57,17 @@ class AuthController extends BaseController
 
         $loginPassword = $model->password;
         $model->getOne("where email = '$model->email'");
-        if(!password_verify($loginPassword, $model->password)) {
-            $model->errors[] = "Podaci nisu validni.";
-            $this->view->render('login', 'auth', $model);
-            exit;
-        }
-        $session = new SessionUserModel();
-        $session->email = $model->email;
 
-        Application::$app->session->set('user', $session->getSessionData());
-        header("location:/home");
+        if(password_verify($loginPassword, $model->password)) {
+            $session = new SessionUserModel();
+            $session->email = $model->email;
+            Application::$app->session->set('user', $session->getSessionData());
+            header("location:/home");
+        }
+
+        $model->password = $loginPassword;
+        Application::$app->session->set("errorNotification", "Neuspesan login!");
+        $this->view->render('login', 'auth', $model);
     }
 
     public function logout() {

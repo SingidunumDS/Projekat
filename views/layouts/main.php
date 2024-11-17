@@ -24,6 +24,11 @@ use app\core\Application;
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet"/>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- Toastr Files -->
+    <link href="../assets/js/plugins/toastr/toastr.css" rel="stylesheet"/>
+
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -133,6 +138,10 @@ use app\core\Application;
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+<script src="../assets/js/plugins/toastr/toastr.js"></script>
 </body>
-
+<?php
+Application::$app->session->showSuccessNotification();
+Application::$app->session->showErrorNotification();
+?>
 </html>

@@ -10,15 +10,36 @@
                                 <p class="mb-0">Enter your email and password to sign up</p>
                             </div>
                             <div class="card-body">
+
                                 <form role="form" method="post" action="/processRegistration">
                                     <div class="mb-3">
                                         <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
+                                        <div class="text-danger"><?php
+                                            if(isset($params->errors['email']))
+                                                echo $params->errors['email'][0];?>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="text" name="firstName" class="form-control form-control-lg" placeholder="First Name" aria-label="First Name">
+                                        <div class="text-danger"><?php
+                                            if(isset($params->errors['firstName']))
+                                                echo $params->errors['firstName'][0];?>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" name="userName" class="form-control form-control-lg" placeholder="Username" aria-label="Email">
+                                        <input type="text" name="lastName" class="form-control form-control-lg" placeholder="Last Name" aria-label="Last Name">
+                                        <div class="text-danger"><?php
+                                            if(isset($params->errors['lastName']))
+                                                echo $params->errors['lastName'][0];?>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <input type="text" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                                        <div class="text-danger"><?php
+                                            if(isset($params->errors['password']))
+                                                echo $params->errors['password'][0];?>
+                                        </div>
                                     </div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="rememberMe">
