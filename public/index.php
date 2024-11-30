@@ -7,6 +7,7 @@ use app\controllers\UserController;
 use app\controllers\HomeController;
 use app\controllers\AuthController;
 use app\controllers\CarController;
+use app\controllers\ReportController;
 
 $app = new Application();
 
@@ -26,4 +27,9 @@ $app->router->post('/processLogin', [AuthController::class, 'processLogin']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 $app->router->get('/accessDenied', [AuthController::class, 'accessDenied']);
 $app->router->post('/getCars', [CarController::class, 'getCars']);
+$app->router->get('/postCar', [CarController::class, 'postCar']);
+$app->router->get('/getMyCars', [CarController::class, 'getMyCars']);
+$app->router->get('/getCarsYear', [ReportController::class, 'getCarsYear']);
+$app->router->get('/car/{car_id}', [CarController::class, 'getCarDetails']);
+$app->router->post('/processCarsYear', [ReportController::class, 'processCarsYear']);
 $app->run();

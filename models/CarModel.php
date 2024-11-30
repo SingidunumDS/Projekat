@@ -30,6 +30,14 @@ class CarModel extends BaseModel
         return ['brand', 'model', 'year', 'color', 'price', 'image', 'user_id', 'fuel', 'price'];
     }
 
+    public function getYears($where) {
+        $query = "SELECT year, COUNT(*) AS broj_automobila FROM car $where GROUP BY year ORDER BY year DESC;";
+        $dbResult = $this->conn->query($query);
+        $arr = [];
+        $arr = $dbResult->fetch_all(MYSQLI_ASSOC);
+        return $arr;
+    }
+
     public function validationRules() {
         return [
             "brand" => [self::RULE_REQUIRED],
