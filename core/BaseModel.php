@@ -36,9 +36,7 @@ abstract class BaseModel {
         $columns = $this->readColumns();
 
         $query = "select " . implode(", ", $columns) . " from {$tableName} $where";
-
         $dbResult = $this->conn->query($query);
-
         $resultArr = [];
         $className = get_class($this);
         while($result = $dbResult->fetch_assoc()) {
