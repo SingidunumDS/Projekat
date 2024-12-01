@@ -1,9 +1,9 @@
 <?php
-// Pretpostavljamo da je $car objekat koji sadrži podatke o automobilu.
+use app\core\Application;
 ?>
 
 <div class="container py-5">
-    <div class="row">
+    <div class="row <?php if(!Application::$app->session->get('user')) {echo "my-8";} ?>">
         <div class="col-md-6">
             <div class="card">
                 <img src="../assets/img/cars/<?php echo htmlspecialchars($params->image); ?>" alt="<?php echo htmlspecialchars($params->model); ?>" class="card-img-top img-fluid">

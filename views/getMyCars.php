@@ -37,8 +37,8 @@
                                         <td><?= ucfirst(htmlspecialchars($car->fuel)) ?></td>
                                         <td><?= ucfirst(htmlspecialchars($car->color)) ?></td>
                                         <td>
-                                            <button class="btn btn-info btn-sm" onclick="window.location='/editCar/<?= $car->id ?>'">Edit</button>
-                                            <button class="btn btn-danger btn-sm" onclick="deleteCar(<?= $car->id ?>)">Delete</button>
+                                            <button class="btn btn-info btn-sm" onclick="window.location='/editCar/<?= $car->car_id ?>'">Edit</button>
+                                            <button class="btn btn-danger btn-sm" onclick="window.location='/deleteCar/<?= $car->car_id ?>'">Delete</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

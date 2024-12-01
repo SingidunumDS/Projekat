@@ -1,3 +1,4 @@
+<?php use app\core\Application;  ?>
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -9,9 +10,10 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/addCar">
+                    <form method="post" action="/processPostCar">
                         <p class="text-uppercase text-sm">Car Information</p>
                         <div class="row">
+                            <input type="hidden" name="user_id" value="<?php echo Application::$app->session->get('user')[0]->user_id; ?>">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="brand" class="form-control-label">Brand</label>

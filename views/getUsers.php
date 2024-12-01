@@ -5,7 +5,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex align-items-center">
                         <h6 class="mb-0">All Users</h6>
-                        <button class="btn btn-primary btn-sm ms-auto" onclick="window.location='/admin/addUser'">Add New User</button>
+                        <button class="btn btn-primary btn-sm ms-auto" onclick="window.location='/createUser'">Add New User</button>
                     </div>
                 </div>
                 <div class="card-body">

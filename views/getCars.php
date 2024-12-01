@@ -1,6 +1,7 @@
+<?php use app\core\Application; ?>
 <div class="container">
     <form method="post" action="/getCars">
-        <div class="row mb-4">
+        <div class="row mb-4 <?php if(!Application::$app->session->get('user')) {echo "my-8";} ?>">
             <div class="col-md-12">
                 <div class="card shadow-sm">
                     <div class="card-header d-flex align-items-center justify-content-between">

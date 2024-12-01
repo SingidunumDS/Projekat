@@ -20,10 +20,16 @@ class ReportController extends BaseController
             $arr = $car->getYears("where year > $firstYear and year < $lastYear");
             $this->view->render('getCarsYear', 'main', $arr);
         }
+    }
 
+    public function getBrandShareData() {
+        $arr = [];
+        $car = new CarModel();
+        $arr = $car->getBrandShareArr();
+        $this->view->render('brandShareData', 'main', $arr);
     }
 
     public function accessRoles() {
-        return ['admin', 'user'];
+        return ['admin', 'korisnik'];
     }
 }

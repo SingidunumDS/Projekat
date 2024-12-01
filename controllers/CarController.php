@@ -38,6 +38,18 @@ class CarController extends BaseController
         $this->view->render('postCar', 'main', null);
     }
 
+    public function processPostCar() {
+        $car = new CarModel();
+        $car->mapData($_POST);
+        if($car->errors) {
+            $this->view->render('postCar', 'main', $car);
+            exit;
+        }
+        $car->add();
+        Application::$app->session->set("successNotification", "Uspesno ste dodali auto");
+        header("location:/getMyCars");
+    }
+
     public function getMyCars() {
         $arr = [];
         $car = new CarModel();
@@ -49,11 +61,22 @@ class CarController extends BaseController
     public function getCarDetails($car_id) {
         $car = new CarModel();
         $car->getOne("where car_id = $car_id");
-        $this->view->render('getCarDetails', 'main', $car);
+        if(isset(Application::$app->session->get('user')[0])) {
+            $this->view->render('getCarDetails', 'main', $car);
+            return;
+        }
+        $this->view->render('getCarDetails', 'auth', $car);
+    }
+
+    public function deleteCar($car_id) {
+        $car = new CarModel();
+        $car->delete("where car_id = $car_id");
+        Application::$app->session->set("successNotification", "Uspesno ste obrisali auto");
+        header("location:/getMyCars");
     }
 
     public function accessRoles()
     {
-        return [];
+        return ['admin','korisnik'];
     }
 }
