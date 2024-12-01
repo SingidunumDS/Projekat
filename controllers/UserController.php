@@ -63,20 +63,16 @@ class UserController extends BaseController
         header("location:/getUsers");
     }
 
-    public function deleteUser() {
-        if(isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
-            $userId = $_GET['user_id'];
-            $model = new UserModel();
-            $model->getOne("where user_id = {$userId}");
+    public function deleteUser($user_id) {
+        $model = new UserModel();
+        $model->getOne("where user_id = {$user_id}");
 
-            $user_role = new UserRoleModel();
-            $user_role->getOne("where user_id = {$userId}");
-            $user_role->delete("WHERE user_id = {$userId}");
-            $model->delete("WHERE user_id = {$userId}");
-            Application::$app->session->set('successNotification', 'Uspesno ste obrisali korisnika');
-            header("location:/getUsers");
-        } else
-            echo "USER ID DOESNT MATCH";
+        $user_role = new UserRoleModel();
+        $user_role->getOne("where user_id = {$user_id}");
+        $user_role->delete("WHERE user_id = {$user_id}");
+        $model->delete("WHERE user_id = {$user_id}");
+        Application::$app->session->set('successNotification', 'Uspesno ste obrisali korisnika');
+        header("location:/getUsers");
     }
 
     public function accessRoles()

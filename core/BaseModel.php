@@ -78,7 +78,6 @@ abstract class BaseModel {
         foreach($columns as $attribute) {
             $query = str_replace(":$attribute", "'{$this->{$attribute}}'", $query);
         }
-
         $this->conn->query($query);
     }
 

@@ -41,7 +41,7 @@ class AuthController extends BaseController
 
     public function login() {
         if(Application::$app->session->get('user')) {
-            header("location:/home");
+            header("location:/");
         }
         $this->view->render('login', 'auth', new LoginModel());
     }
@@ -62,7 +62,7 @@ class AuthController extends BaseController
             $session = new SessionUserModel();
             $session->email = $model->email;
             Application::$app->session->set('user', $session->getSessionData());
-            header("location:/home");
+            header("location:/");
         }
 
         $model->password = $loginPassword;

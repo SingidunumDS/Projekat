@@ -23,11 +23,27 @@ class CarModel extends BaseModel
 
     public function readColumns()
     {
-        return ['car_id', 'brand', 'model', 'year', 'color', 'price', 'image', 'user_id', 'fuel', 'price'];
+        return ['car_id', 'brand', 'model', 'year', 'color', 'price', 'image', 'user_id', 'fuel'];
     }
 
     public function editColumns() {
-        return ['brand', 'model', 'year', 'color', 'price', 'image', 'user_id', 'fuel', 'price'];
+        return ['brand', 'model', 'year', 'color', 'price', 'image', 'user_id', 'fuel'];
+    }
+
+    public function getYears($where) {
+        $query = "SELECT year, COUNT(*) AS broj_automobila FROM car $where GROUP BY year ORDER BY year DESC;";
+        $dbResult = $this->conn->query($query);
+        $arr = [];
+        $arr = $dbResult->fetch_all(MYSQLI_ASSOC);
+        return $arr;
+    }
+
+    public function getBrandShareArr() {
+        $query = "SELECT brand, COUNT(*) as broj_automobila FROM car GROUP BY brand ORDER BY brand DESC;";
+        $dbResult = $this->conn->query($query);
+        $arr = [];
+        $arr = $dbResult->fetch_all(MYSQLI_ASSOC);
+        return $arr;
     }
 
     public function validationRules() {

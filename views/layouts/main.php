@@ -28,6 +28,8 @@ use app\core\Application;
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- Toastr Files -->
     <link href="../assets/js/plugins/toastr/toastr.css" rel="stylesheet"/>
+    <!-- CanvasJS -->
+    <script src="../assets/js/plugins/canvasJS/canvasjs.min.js"></script>
 
 </head>
 
@@ -38,11 +40,11 @@ use app\core\Application;
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
            aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
+        <a class="navbar-brand m-0" href="/"
            target="_blank">
             <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
                  alt="main_logo">
-            <span class="ms-1 font-weight-bold">Creative Tim</span>
+            <span class="ms-1 font-weight-bold">Polovni Automobili</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -93,6 +95,43 @@ use app\core\Application;
                 echo '</a>';
                 echo '</li>';
             } else {
+
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/getMyCars">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-user-run text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">My Cars</span>';
+                echo '</a>';
+                echo '</li>';
+
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/postCar">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-user-run text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">Post New Car</span>';
+                echo '</a>';
+                echo '</li>';
+
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/getCarsYear">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-user-run text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">Report - Cars per Years</span>';
+                echo '</a>';
+                echo '</li>';
+
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link " href="/brandShareData">';
+                echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
+                echo '<i class="ni ni-user-run text-dark text-sm opacity-10"></i>';
+                echo '</div>';
+                echo '<span class="nav-link-text ms-1">Report - Cars per Brand</span>';
+                echo '</a>';
+                echo '</li>';
+
                 echo '<li class="nav-item">';
                 echo '<a class="nav-link " href="/logout">';
                 echo '<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">';
